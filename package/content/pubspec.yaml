@@ -1,4 +1,4 @@
-name: nomo
+name: content
 publish_to: 'none'
 
 # ============================================================================ #
@@ -16,21 +16,15 @@ dependencies:
   flutter:
     sdk: flutter
 
-  core:
-    path: package/core
-  widget:
-    path: package/widget
-  theme:
-    path: package/theme
-  content:
-    path: package/content
-
 # ============================================================================ #
 # Dev Dependencies                                                             #
 # ============================================================================ #
 
 dev_dependencies:
   flutter_lints: ^2.0.0
+
+  core:
+    path: ../core
 
 # ============================================================================ #
 # Flutter                                                                      #

@@ -8,10 +8,13 @@ abstract class Bootstrap {
   abstract EnvData envData;
   abstract List<BlocProvider> globalProviders;
   abstract List<ModuleRegister> moduleRegisters;
+  abstract List<ModuleRouter> moduleRouters;
 
   Injector get injector => Injector.I;
 
-  Future<Widget> complete(BootRoutes routes);
+  Widget complete(BootRoutes routes);
+
+  Route? generateErrorRoute(RouteSettings settings);
 
   Future<void> boot(BootEngine engine) async {
     await _register();
@@ -21,11 +24,11 @@ abstract class Bootstrap {
     }
 
     engine(
-      MultiBlocProvider(
-        providers: globalProviders,
-        child: await complete(
+      BootInherited(
+        env: injector.get(),
+        child: complete(
           (settings) {
-            for (var module in moduleRegisters) {
+            for (var module in moduleRouters) {
               var route = module.generateRoute(
                 settings,
                 injector,
@@ -35,6 +38,8 @@ abstract class Bootstrap {
                 return route;
               }
             }
+
+            return generateErrorRoute(settings);
           },
         ),
       ),
@@ -52,9 +57,16 @@ abstract class Bootstrap {
     );
 
     // Init Env data
-    injector.singleton(
+    injector.singleton<Env>(
       () => Env(
         envData,
+        injector.get(),
+      ),
+    );
+
+    // Init setting controller
+    injector.singleton<SettingController>(
+      () => SettingController(
         injector.get(),
       ),
     );

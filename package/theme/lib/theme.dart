@@ -8,6 +8,8 @@ export 'constant/screen_size.dart';
 export 'constant/space_size.dart';
 export 'constant/text_size.dart';
 export 'constant/theme_color.dart';
+export 'constant/icon_paths.dart';
+export 'constant/image_paths.dart';
 
 export 'extension/color_context_extension.dart';
 export 'extension/size_context_extension.dart';
