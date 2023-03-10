@@ -7,6 +7,7 @@ import 'package:nomo/bloc/mixin/navigator_mixin.dart';
 
 class AppBloc extends Bloc<AppEvent, AppState>
     with DeepLinkMixin, AwaitLoggedMixin, NavigatorMixin {
+
   AppBloc() : super(InitAppState()) {
     startListener();
     registerAwaitLogged(this);
@@ -20,14 +21,6 @@ class AppBloc extends Bloc<AppEvent, AppState>
 
   @override
   Future<void> onDeepLink(String uri) async {
-    if (await _checkAuth() == false) {
-      appLaunchEvent();
-      var complete = await awaitComplete();
-      if (complete == false) {
-        return;
-      }
-    }
-
     deepLinkRedirect(
       Uri.parse(uri),
     );
