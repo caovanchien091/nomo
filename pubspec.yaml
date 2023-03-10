@@ -22,8 +22,6 @@ dependencies:
     path: package/widget
   theme:
     path: package/theme
-  content:
-    path: package/content
 
 # ============================================================================ #
 # Dev Dependencies                                                             #

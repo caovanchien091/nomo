@@ -1,5 +1,3 @@
-import 'package:content/str.dart';
-import 'package:core/core.dart';
 import 'package:theme/theme.dart';
 import 'package:flutter/material.dart';
 
@@ -20,34 +18,24 @@ class NotFoundScreen extends StatelessWidget {
               padding: const EdgeInsets.all(16),
               child: Image.asset(
                 ImagePaths.notFoundError,
+                filterQuality: FilterQuality.medium,
               ),
             ),
             Text(
-              Str.of(context).appErrorPageNotFound,
+              'Không tìm thấy trang',
               style: context.titleLarge.bold.apply(
                 color: context.primaryColor,
               ),
             ),
             TextButton(
               child: Text(
-                Str.of(context).appErrorClickToBack,
+                'Nhấn để trở lại',
                 style: context.bodySmall.apply(
                   color: context.onSurfaceColor,
                 ),
               ),
               onPressed: () {
-                Injector.I.get<SettingController>().updateLang('en');
-              },
-            ),
-            TextButton(
-              child: Text(
-                Str.of(context).appErrorClickToBack,
-                style: context.bodySmall.apply(
-                  color: context.onSurfaceColor,
-                ),
-              ),
-              onPressed: () {
-                Injector.I.get<SettingController>().updateLang('vi');
+                Navigator.of(context).pop();
               },
             ),
           ],

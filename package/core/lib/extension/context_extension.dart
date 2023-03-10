@@ -21,4 +21,16 @@ extension ContextExtension on BuildContext {
   String get timeFormat {
     return _bootInherited.env.timeFormat;
   }
+
+  List get providers {
+    return _bootInherited.providers;
+  }
+
+  T? getProvider<T>() {
+    for (var provider in providers) {
+      if (provider.runtimeType == T) {
+        return provider;
+      }
+    }
+  }
 }

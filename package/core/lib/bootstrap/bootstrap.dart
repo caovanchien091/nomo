@@ -6,7 +6,7 @@ typedef BootRoutes = Route? Function(RouteSettings);
 
 abstract class Bootstrap {
   abstract EnvData envData;
-  abstract List<BlocProvider> globalProviders;
+  abstract List providers;
   abstract List<ModuleRegister> moduleRegisters;
   abstract List<ModuleRouter> moduleRouters;
 
@@ -26,6 +26,7 @@ abstract class Bootstrap {
     engine(
       BootInherited(
         env: injector.get(),
+        providers: providers,
         child: complete(
           (settings) {
             for (var module in moduleRouters) {
@@ -60,13 +61,6 @@ abstract class Bootstrap {
     injector.singleton<Env>(
       () => Env(
         envData,
-        injector.get(),
-      ),
-    );
-
-    // Init setting controller
-    injector.singleton<SettingController>(
-      () => SettingController(
         injector.get(),
       ),
     );

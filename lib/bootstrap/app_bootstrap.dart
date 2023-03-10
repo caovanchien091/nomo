@@ -1,4 +1,5 @@
 import 'package:core/core.dart';
+import 'package:nomo/bloc/app_bloc.dart';
 import 'package:nomo/register/app_router.dart';
 import 'package:nomo/screen/error/not_found_screen.dart';
 import 'package:widget/widget.dart';
@@ -11,7 +12,7 @@ class AppBootstrap extends Bootstrap {
   EnvData envData = DevEnvData();
 
   @override
-  List<BlocProvider> globalProviders = [];
+  List providers = [];
 
   @override
   List<ModuleRegister> moduleRegisters = [
@@ -19,14 +20,22 @@ class AppBootstrap extends Bootstrap {
   ];
 
   @override
-  List<ModuleRouter> moduleRouters = [];
+  List<ModuleRouter> moduleRouters = [
+    AppRouter(),
+  ];
 
   @override
   Widget complete(routes) {
-    return Application(
-      routes: routes,
-      controller: injector.get(),
-      initRoute: AppRouter.launch,
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<AppBloc>(
+          create: (context) => injector.get(),
+        ),
+      ],
+      child: Application(
+        routes: routes,
+        initRoute: AppRouter.launch,
+      ),
     );
   }
 
