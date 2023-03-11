@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:nomo/screen/home/page/setting/setting_page.dart';
+
+import 'page/setting/setting_page.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({

@@ -26,10 +26,6 @@ class AppBloc extends Bloc<AppEvent, AppState>
     );
   }
 
-  Future<bool> _checkAuth() async {
-    return true;
-  }
-
   void appLaunchEvent() {
     add(AppLaunchEvent());
   }

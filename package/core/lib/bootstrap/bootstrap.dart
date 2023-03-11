@@ -7,14 +7,13 @@ typedef BootRoutes = Route? Function(RouteSettings);
 abstract class Bootstrap {
   abstract EnvData envData;
   abstract List providers;
+  abstract ModuleRouter errorRoute;
   abstract List<ModuleRegister> moduleRegisters;
   abstract List<ModuleRouter> moduleRouters;
 
   Injector get injector => Injector.I;
 
   Widget complete(BootRoutes routes);
-
-  Route? generateErrorRoute(RouteSettings settings);
 
   Future<void> boot(BootEngine engine) async {
     await _register();
@@ -40,7 +39,10 @@ abstract class Bootstrap {
               }
             }
 
-            return generateErrorRoute(settings);
+            return errorRoute.generateRoute(
+              settings,
+              injector,
+            );
           },
         ),
       ),

@@ -1,7 +1,8 @@
+import 'package:auth/register/auth_router.dart';
 import 'package:core/core.dart';
 import 'package:nomo/bloc/app_bloc.dart';
 import 'package:nomo/register/app_router.dart';
-import 'package:nomo/screen/error/not_found_screen.dart';
+import 'package:nomo/register/error_router.dart';
 import 'package:widget/widget.dart';
 import 'package:flutter/material.dart';
 import 'package:nomo/bootstrap/env/env_data.dart';
@@ -10,6 +11,9 @@ import 'package:nomo/register/app_register.dart';
 class AppBootstrap extends Bootstrap {
   @override
   EnvData envData = DevEnvData();
+
+  @override
+  ModuleRouter errorRoute = ErrorRouter();
 
   @override
   List providers = [];
@@ -22,6 +26,7 @@ class AppBootstrap extends Bootstrap {
   @override
   List<ModuleRouter> moduleRouters = [
     AppRouter(),
+    AuthRouter(),
   ];
 
   @override
@@ -34,15 +39,8 @@ class AppBootstrap extends Bootstrap {
       ],
       child: Application(
         routes: routes,
-        initRoute: AppRouter.launch,
+        initRoute: AuthRouter.signIn,
       ),
-    );
-  }
-
-  @override
-  Route? generateErrorRoute(settings) {
-    return MaterialPageRoute(
-      builder: (context) => const NotFoundScreen(),
     );
   }
 }

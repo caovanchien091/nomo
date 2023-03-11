@@ -1,4 +1,4 @@
-name: nomo
+name: auth
 publish_to: 'none'
 
 # ============================================================================ #
@@ -17,18 +17,13 @@ dependencies:
     sdk: flutter
 
   core:
-    path: package/core
-  widget:
-    path: package/widget
+    path: ../../package/core
   theme:
-    path: package/theme
+    path: ../../package/theme
   source:
-    path: package/source
-
-  auth:
-    path: module/auth
-  home:
-    path: module/home
+    path: ../../package/source
+  widget:
+    path: ../../package/widget
 
 # ============================================================================ #
 # Dev Dependencies                                                             #

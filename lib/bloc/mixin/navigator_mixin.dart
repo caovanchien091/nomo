@@ -16,19 +16,9 @@ mixin NavigatorMixin implements AwaitLoggedMixin {
     );
   }
 
-  Future<void> signInRedirect() async {
-    Navigator.of(currentContext).pushNamedAndRemoveUntil(
-      AppRouter.home,
-      (route) => false,
-    );
-  }
+  Future<void> signInRedirect() async {}
 
-  Future<void> homeRedirect() async {
-    Navigator.of(currentContext).pushNamedAndRemoveUntil(
-      AppRouter.home,
-      (route) => false,
-    );
-  }
+  Future<void> homeRedirect() async {}
 
   Future<void> launchRedirect() async {
     Navigator.of(currentContext).pushNamedAndRemoveUntil(
