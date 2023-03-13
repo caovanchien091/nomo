@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:theme/theme.dart';
+import 'package:theme/theme/custom_decorator_theme.dart';
 
 class CustomTheme {
   static ThemeData get dark => _buildTheme(true);
@@ -31,6 +32,9 @@ class CustomTheme {
 
     return data.copyWith(
       textTheme: CustomTextTheme(
+        colorScheme: data.colorScheme,
+      ),
+      inputDecorationTheme: CustomDecoratorTheme(
         colorScheme: data.colorScheme,
       ),
     );

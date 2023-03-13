@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:theme/extension/color_context_extension.dart';
 
 import 'model/sign_in_model.dart';
 import 'widget/sign_in_form.dart';
@@ -18,97 +19,23 @@ class _SignInScreenState extends State<SignInScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: FormSignIn(
-          model: SignInModel(),
-        ),
-      ),
-    );
-  }
-}
-
-class ScaffoldExpandAppbar extends StatelessWidget {
-  const ScaffoldExpandAppbar({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: CustomScrollView(
-        slivers: [
-          SliverPersistentHeader(
-            pinned: true,
-            delegate: ScaffoldExpandDelegate(),
+      body: Stack(
+        fit: StackFit.passthrough,
+        children: [
+          CustomPaint(
+            painter: PaintSignInBackground(
+              color: context.primaryColor,
+            ),
+            child: Container(),
           ),
-          SliverList(
-            delegate: SliverChildListDelegate.fixed(
-              [
-                Container(
-                  height: 100,
-                  color: Colors.blue,
-                ),
-                Container(
-                  height: 100,
-                  color: Colors.red,
-                ),
-                Container(
-                  height: 100,
-                  color: Colors.green,
-                ),
-                Container(
-                  height: 100,
-                  color: Colors.grey,
-                ),
-                Container(
-                  height: 100,
-                  color: Colors.blue,
-                ),
-                Container(
-                  height: 100,
-                  color: Colors.red,
-                ),
-                Container(
-                  height: 100,
-                  color: Colors.green,
-                ),
-                Container(
-                  height: 100,
-                  color: Colors.grey,
-                ),
-                Container(
-                  height: 100,
-                  color: Colors.blue,
-                ),
-                Container(
-                  height: 100,
-                  color: Colors.red,
-                ),
-                Container(
-                  height: 100,
-                  color: Colors.green,
-                ),
-                Container(
-                  height: 100,
-                  color: Colors.grey,
-                ),
-                Container(
-                  height: 100,
-                  color: Colors.blue,
-                ),
-                Container(
-                  height: 100,
-                  color: Colors.red,
-                ),
-                Container(
-                  height: 100,
-                  color: Colors.green,
-                ),
-                Container(
-                  height: 100,
-                  color: Colors.grey,
-                ),
-              ],
+          Container(
+            alignment: Alignment.center,
+            margin: EdgeInsets.all(16),
+            decoration: BoxDecoration(
+              color: context.primaryColor,
+            ),
+            child: FormSignIn(
+              model: SignInModel(),
             ),
           ),
         ],
@@ -117,48 +44,59 @@ class ScaffoldExpandAppbar extends StatelessWidget {
   }
 }
 
-class ScaffoldExpandDelegate extends SliverPersistentHeaderDelegate {
-  double maxSize = 200;
-  double minSize = 56;
+class PaintSignInBackground extends CustomPainter {
+  final Color color;
 
-  Widget get minChild => Container(
-        height: minSize,
-        color: Colors.yellow,
-      );
-
-  Widget get maxChild => Container(
-        height: maxSize,
-        color: Colors.deepPurple,
-      );
+  PaintSignInBackground({
+    required this.color,
+  });
 
   @override
-  Widget build(context, shrinkOffset, overlapsContent) {
-    double expandSize = maxSize - minSize;
-    double dragPosition = max(expandSize - shrinkOffset, 0);
-    double percent = dragPosition / expandSize;
+  void paint(Canvas canvas, Size size) {
+    double width = size.width;
+    double height = size.height;
 
-    return Stack(
-      children: [
-        Opacity(
-          opacity: percent,
-          child: maxChild,
-        ),
-        Opacity(
-          opacity: 1 - percent,
-          child: minChild,
-        ),
-      ],
-    );
+    double rootWidth = 0;
+    double rootHeight = 0;
+
+    Paint paint = Paint()
+      ..color = color.withOpacity(0.4)
+      ..style = PaintingStyle.fill;
+
+    Path pathOne = Path()
+      ..lineTo(rootWidth, height * 0.2)
+      ..quadraticBezierTo(width * 0.2, height * 0.1, width * 0.4, height * 0.3)
+      ..quadraticBezierTo(width * 0.6, height * 0.5, width * 0.8, height * 0.3)
+      ..quadraticBezierTo(width * 0.9, height * 0.2, width, height * 0.3)
+      ..lineTo(width, 0)
+      ..lineTo(0, 0)
+      ..lineTo(rootWidth, height * 0.2);
+
+    Path pathTwo = Path()
+      ..lineTo(rootWidth, height * 0.3)
+      ..quadraticBezierTo(width * 0.2, height * 0.1, width * 0.4, height * 0.3)
+      ..quadraticBezierTo(width * 0.6, height * 0.5, width * 0.8, height * 0.25)
+      ..quadraticBezierTo(width * 0.9, height * 0.1, width, height * 0.2)
+      ..lineTo(width, 0)
+      ..lineTo(0, 0)
+      ..lineTo(rootWidth, height * 0.2);
+
+    Path pathThree = Path()
+      ..lineTo(rootWidth, height * 0.4)
+      ..quadraticBezierTo(width * 0.2, height * 0.1, width * 0.4, height * 0.3)
+      ..quadraticBezierTo(width * 0.6, height * 0.5, width * 0.8, height * 0.35)
+      ..quadraticBezierTo(width, height * 0.2, width, height * 0.5)
+      ..lineTo(width, 0)
+      ..lineTo(0, 0)
+      ..lineTo(rootWidth, height * 0.4);
+
+    canvas.drawPath(pathOne, paint);
+    canvas.drawPath(pathTwo, paint);
+    canvas.drawPath(pathThree, paint);
   }
 
   @override
-  double get maxExtent => maxSize;
-
-  @override
-  double get minExtent => minSize;
-
-  @override
-  bool shouldRebuild(oldDelegate) {
+  bool shouldRepaint(oldDelegate) {
     return true;
   }
 }

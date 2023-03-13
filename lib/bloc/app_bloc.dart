@@ -3,30 +3,23 @@ import 'package:nomo/bloc/app_event.dart';
 import 'package:nomo/bloc/app_state.dart';
 import 'package:nomo/bloc/mixin/await_logged_mixin.dart';
 import 'package:nomo/bloc/mixin/deep_link_mixin.dart';
-import 'package:nomo/bloc/mixin/navigator_mixin.dart';
 
 class AppBloc extends Bloc<AppEvent, AppState>
-    with DeepLinkMixin, AwaitLoggedMixin, NavigatorMixin {
+    with DeepLinkMixin, AwaitLoggedMixin {
 
   AppBloc() : super(InitAppState()) {
     startListener();
     registerAwaitLogged(this);
-
-    on<AppLaunchEvent>(_appLaunchEvent);
   }
 
-  Future<void> _appLaunchEvent(AppLaunchEvent event, Emitter emit) async {
-    homeRedirect();
-  }
-
-  @override
-  Future<void> onDeepLink(String uri) async {
-    deepLinkRedirect(
-      Uri.parse(uri),
-    );
-  }
 
   void appLaunchEvent() {
     add(AppLaunchEvent());
+  }
+
+  @override
+  Future<void> onDeepLink(String uri) {
+    // TODO: implement onDeepLink
+    throw UnimplementedError();
   }
 }

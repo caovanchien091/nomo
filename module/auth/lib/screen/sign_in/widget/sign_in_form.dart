@@ -12,42 +12,22 @@ class FormSignIn extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var contro = TextEditingController();
-    return Container(
-      margin: EdgeInsets.all(16),
-      child: Form(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            TextField(
-              controller: contro,
-              onChanged: (value) {
-                model.userName = value;
-              },
-              decoration: InputDecoration(errorText: 'aaa'),
-            ),
-            TextFormField(
-              onChanged: (value) {
-                model.password = value;
-              },
-            ),
-            ElevatedButton(
-              onPressed: () {
-                contro.notifyListeners();
-              },
-              child: Text("Hhahaha"),
-            ),
-          ],
-        ),
+    return Form(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          TextFormField(
+            onChanged: (value) {
+              model.userName = value;
+            },
+          ),
+          TextFormField(
+            onChanged: (value) {
+              model.password = value;
+            },
+          ),
+        ],
       ),
     );
   }
-}
-
-class CustomTextField extends TextField {
-  const CustomTextField({
-    Key? key,
-  }) : super(key: key);
-
-
 }

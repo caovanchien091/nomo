@@ -24,8 +24,6 @@ class Application extends StatelessWidget {
       themeMode: ThemeMode.light,
       // Debug
       showSemanticsDebugger: false,
-      // Key Navigator
-      navigatorKey: NavigatorService.navigatorKey,
     );
   }
 }

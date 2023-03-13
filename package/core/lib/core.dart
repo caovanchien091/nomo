@@ -46,8 +46,6 @@ export 'injection/register/module_register.dart';
 export 'injection/register/module_router.dart';
 export 'injection/injector.dart';
 
-export 'navigator/navigator_service.dart';
-
 export 'network/interceptors/logger_interceptor.dart';
 export 'network/interceptors/network_interceptor.dart';
 export 'network/network_client.dart';
